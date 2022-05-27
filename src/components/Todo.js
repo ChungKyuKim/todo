@@ -23,7 +23,7 @@ const Todo = () => {
           setTodoItems={setTodoItems}
           addItems={addItems}
         ></TodoHeader>
-        <TodoList todoItems={todoItems}></TodoList>
+        <TodoList todoItems={todoItems} setTodoItems={setTodoItems}></TodoList>
       </TodoBoard>
     </TodoWrapper>
   );
