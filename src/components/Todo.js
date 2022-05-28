@@ -5,6 +5,9 @@ import TodoList from "./TodoList";
 
 const Todo = () => {
   const [todoItems, setTodoItems] = useState([]);
+  const [search, setSearch] = useState("");
+  const [searchResult, setSearchResult] = useState([]);
+
   const no = useRef(1);
   const addItems = text => {
     setTodoItems([
@@ -15,15 +18,42 @@ const Todo = () => {
       },
     ]);
   };
+  console.log(search);
+
+  const searchHandler = e => {
+    const searchResult = e.target.value;
+    setSearch(searchResult);
+  };
+
+  const showSearchResult = e => {
+    e.preventDefault();
+
+    if (!search) {
+      setSearchResult([]);
+    } else {
+      setSearchResult(
+        todoItems.filter(item => item.text.indexOf(search) !== -1)
+      );
+    }
+
+    setSearch("");
+  };
   return (
     <TodoWrapper>
       <TodoBoard>
-        <TodoHeader
+        <div>TodoSearch</div>
+        <SearchBar
+          type="text"
+          onChange={searchHandler}
+          value={search}
+        ></SearchBar>
+        <SearchButton onClick={showSearchResult}>검색</SearchButton>
+        <TodoHeader addItems={addItems}></TodoHeader>
+        <TodoList
           todoItems={todoItems}
           setTodoItems={setTodoItems}
-          addItems={addItems}
-        ></TodoHeader>
-        <TodoList todoItems={todoItems} setTodoItems={setTodoItems}></TodoList>
+          searchResult={searchResult}
+        ></TodoList>
       </TodoBoard>
     </TodoWrapper>
   );
@@ -41,4 +71,6 @@ const TodoBoard = styled.div`
   margin: 0 auto;
   margin-top: 60px;
 `;
+const SearchBar = styled.input``;
+const SearchButton = styled.button``;
 export default Todo;

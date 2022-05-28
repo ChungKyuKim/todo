@@ -1,22 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import TodoItem from "./TodoItem";
 
-const TodoList = ({ todoItems, setTodoItems }) => {
+const TodoList = ({ todoItems, setTodoItems, searchResult }) => {
   const onDelete = id => {
     const result = todoItems.filter(item => item.id !== id);
     setTodoItems(result);
   };
+  console.log(searchResult);
   return (
     <>
       <TodoItems>
         <ul>
-          {todoItems.map(item => {
-            return (
-              <li key={item.id} onClick={() => onDelete(item.id)}>
-                {item.text}
-              </li>
-            );
-          })}
+          {searchResult.length >= 1
+            ? searchResult.map(item => {
+                return <TodoItem item={item} />;
+              })
+            : todoItems.map(item => {
+                return (
+                  <TodoItem
+                    item={item}
+                    onDelete={onDelete}
+                    setTodoItems={setTodoItems}
+                    todoItems={todoItems}
+                  />
+                );
+              })}
         </ul>
       </TodoItems>
     </>
@@ -27,4 +36,8 @@ const TodoItems = styled.div`
   width: 100%;
   height: 100%;
 `;
+
+const DelButton = styled.button``;
+const UpdateButton = styled.button``;
+
 export default TodoList;
