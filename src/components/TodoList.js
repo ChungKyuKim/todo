@@ -7,11 +7,11 @@ const TodoList = ({ todoItems, setTodoItems, searchResult }) => {
     const result = todoItems.filter(item => item.id !== id);
     setTodoItems(result);
   };
-  console.log(searchResult);
+
   return (
     <>
       <TodoItems>
-        <ul>
+        <TodoListUl>
           {searchResult.length >= 1
             ? searchResult.map(item => {
                 return <TodoItem item={item} />;
@@ -26,7 +26,7 @@ const TodoList = ({ todoItems, setTodoItems, searchResult }) => {
                   />
                 );
               })}
-        </ul>
+        </TodoListUl>
       </TodoItems>
     </>
   );
@@ -37,7 +37,8 @@ const TodoItems = styled.div`
   height: 100%;
 `;
 
-const DelButton = styled.button``;
-const UpdateButton = styled.button``;
+const TodoListUl = styled.ul`
+  padding-left: 5px;
+`;
 
 export default TodoList;

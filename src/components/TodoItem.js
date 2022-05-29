@@ -27,20 +27,64 @@ const TodoItem = ({ item, onDelete, todoItems, setTodoItems }) => {
   };
 
   return edited ? (
-    <li key={item.id}>
-      <input type="text" value={editedText} onChange={editedTextHandler} />
-      <button onClick={e => onUpdate(item.id, editedText)}>완료</button>
-    </li>
+    <TodoEditContent key={item.id}>
+      <TodoEditText
+        type="text"
+        value={editedText}
+        onChange={editedTextHandler}
+      />
+      <TodoEditBtn onClick={e => onUpdate(item.id, editedText)}>
+        완료
+      </TodoEditBtn>
+    </TodoEditContent>
   ) : (
-    <li key={item.id}>
-      {item.text}
+    <TodoContent key={item.id}>
+      <TodoText>{item.text}</TodoText>
       <DelButton onClick={() => onDelete(item.id)}> 삭제 </DelButton>
       <UpdateButton onClick={() => setEdited(!edited)}>수정</UpdateButton>
-    </li>
+    </TodoContent>
   );
 };
 
-const DelButton = styled.button``;
-const UpdateButton = styled.button``;
+const TodoEditContent = styled.li`
+  display: flex;
+`;
+
+const TodoEditText = styled.input`
+  flex: 9;
+  height: 30px;
+  border: none;
+  outline: none;
+`;
+
+const TodoEditBtn = styled.button`
+  background: white;
+  border: none;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const TodoContent = styled.li`
+  list-style: none;
+  display: flex;
+`;
+const TodoText = styled.span`
+  flex: 8;
+`;
+const DelButton = styled.button`
+  background: none;
+  border: none;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+const UpdateButton = styled.button`
+  background: none;
+  border: none;
+  &:hover {
+    cursor: pointer;
+  }
+`;
 
 export default TodoItem;

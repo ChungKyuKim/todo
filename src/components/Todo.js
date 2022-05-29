@@ -18,7 +18,6 @@ const Todo = () => {
       },
     ]);
   };
-  console.log(search);
 
   const searchHandler = e => {
     const searchResult = e.target.value;
@@ -42,12 +41,15 @@ const Todo = () => {
     <TodoWrapper>
       <TodoBoard>
         <div>TodoSearch</div>
-        <SearchBar
-          type="text"
-          onChange={searchHandler}
-          value={search}
-        ></SearchBar>
-        <SearchButton onClick={showSearchResult}>검색</SearchButton>
+        <SearchWrapper>
+          <SearchBar
+            type="text"
+            onChange={searchHandler}
+            value={search}
+            placeholder="할 일 뭐였지?"
+          ></SearchBar>
+          <SearchButton onClick={showSearchResult}>검색</SearchButton>
+        </SearchWrapper>
         <TodoHeader addItems={addItems}></TodoHeader>
         <TodoList
           todoItems={todoItems}
@@ -70,7 +72,31 @@ const TodoBoard = styled.div`
   height: 500px;
   margin: 0 auto;
   margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background: #e8e8e8;
+  border-radius: 20px;
+  padding: 20px;
 `;
-const SearchBar = styled.input``;
-const SearchButton = styled.button``;
+const SearchWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  margin-top: 10px;
+`;
+const SearchBar = styled.input`
+  flex: 9;
+  height: 30px;
+  border: none;
+  outline: none;
+`;
+const SearchButton = styled.button`
+  background: white;
+  border: none;
+  &:hover {
+    cursor: pointer;
+  }
+`;
 export default Todo;
